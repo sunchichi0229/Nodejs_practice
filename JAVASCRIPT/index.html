@@ -12,10 +12,19 @@
 <body>
     <div class="container">
         <div>名前 : <input type="text" id="name" /></div>
-        <div>地域 : <select id="city">
-                        <option value="03">東京</option>
-                        <option value="072">大阪</option>
-                    </select>
+        <div>地域 : 
+            <select id="city" onchange="changeCity();">
+            </select>
+        </div>
+        <div >町 : 
+            <select id="region_03">
+                <option value="">六本木</option>
+                <option value="">銀座</option>
+            </select>
+            <select id="region_072" style="display:none;">
+                <option value="">北新地</option>
+                <option value="">難波</option>
+            </select>
         </div>
         <button type="button" onclick="regist();">登録</button>
     </div>
@@ -25,10 +34,52 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script>
         function regist() {
-            alert(document.getElementById("name").value);
-            document.getElementById("name").value;
+           // alert(document.getElementById("name").value);
+           // alert(document.getElementById("city").value);
+
+            alert($("#name").val());
+            alert($("#city").val());
         }
 
+        function loadCity() {
+            let city = [{
+                code: "03",
+                name: "東京"
+            },
+            {
+                code: "072",
+                name: "大阪"
+            },
+            {
+                code: "082",
+                name: "広島"
+            }
+            ];
+
+            for(let i = 0 ; i < city.length ; i++) {
+
+                if(i == 0)  {
+                    $('#city').append('<option value="' + city[i].code +'" selected>' + city[i].name + '</option>');
+                } else { 
+                    $('#city').append('<option value="' + city[i].code + '">' + city[i].name + '</option>');
+                }
+            }
+        }
+
+        loadCity();
+
+        function changeCity() {
+           // let city = document.getElementById("city").value;
+           // document.getElementById("region_03").style.display = "none";
+           // document.getElementById("region_072").style.display = "none";
+
+           // document.getElementById("region_"+city).style.display = "";
+        
+            let city = $("#city").val();
+            $("#region_03").hide();
+            $("#region_072").hide();
+            $("#region_"+city).show();
+        }
 
     </script>
 </body>
